@@ -1,95 +1,152 @@
-# PLATEprint
-# PLATEPrint — Food Sustainability Intelligence
+# PLATEPrint
 
-**Food CO₂ tracking and AI-powered swap recommendations for campuses, hospitals, and institutions.**
+**Every meal leaves a mark. Now you can measure it.**
 
-Built for the KI Sustainability Hackathon · Powered by Google Gemini (DeepMind) · Open source
+Food CO₂ tracking and AI-powered swap recommendations for campuses, hospitals, and institutions.
 
-🔗 **Live demo:** [your-project.lovable.app](https://your-project.lovable.app)
+🔗 **Live demo:** [your-project.lovable.app](https://your-project.lovable.app)  
 🎥 **2-min video:** [loom.com/share/your-link](https://loom.com/share/your-link)
 
----
-
-## What is Plateprint?
-
-Plateprint is a food sustainability platform for institutional catering — designed for Karolinska Institutet, Swedish hospitals, university campuses, and property managers like Akademiska Hus.
-
-It solves a specific, urgent problem: institutions must now report Scope 3 food emissions under EU CSRD, but have no infrastructure to collect this data. Plateprint connects to existing food purchasing data (CSV upload from any supplier system), maps every ingredient to verified European LCA emission factors, and produces audit-ready sustainability reports — while suggesting lower-footprint alternatives grounded in EAT-Lancet and One Health frameworks.
+Built for the KI Sustainability Hackathon · Powered by Google Gemini (DeepMind) · MIT licence
 
 ---
 
-## Key features
+## The problem it solves
 
-- **Instant emissions baseline** — Upload any supplier CSV, get CO₂e/week by food category in seconds
-- **Agribalyse LCA matching** — 29 ingredients matched to Agribalyse 3.1 + RISE Sweden verified data
-- **AI-powered swap suggestions** — Google Gemini (DeepMind) generates contextual, institution-specific recommendations grounded in EAT-Lancet and SDG guidelines
-- **CSRD Scope 3 report** — Auto-generated, audit-ready, GRI 305 aligned
-- **Peer benchmarking** — Compare against Swedish institutional catering average (280 kg CO₂e/week)
+EU CSRD now requires institutions to report Scope 3 food emissions — but most have no infrastructure to collect this data. PLATEPrint connects existing purchasing records to verified LCA emission factors, generates audit-ready sustainability reports, and suggests AI-powered ingredient swaps grounded in EAT-Lancet and One Health frameworks.
 
 ---
 
-## Sustainability frameworks integrated
+## Features
 
-| Framework | How Plateprint implements it |
+| Feature | What it does |
 |---|---|
-| EAT-Lancet Planetary Health Diet | Swap targets prioritise plant proteins and reduce ruminant meat |
-| One Health | Reduces AMR risk by deprioritising factory-farmed meat |
-| SDG 2 (Zero Hunger) | Ensures swaps maintain protein and caloric equivalence |
-| SDG 3 (Good Health) | Reduces diet-related disease burden in institutional settings |
-| SDG 12 (Responsible Consumption) | Tracks and minimises food purchasing waste and footprint |
-| SDG 13 (Climate Action) | Quantifies food-system GHG reduction with auditable methodology |
-| UNESCO ESD | Designed for educational institutions as living labs for sustainability |
-| Doughnut Economics | Respects planetary boundaries while maintaining social food equity |
+| Emissions dashboard | Maps every CSV ingredient to Agribalyse LCA factors. Shows CO₂e by category vs. Swedish peer benchmark (280 kg/week). |
+| AI swap suggestions | Flags top emitters. "Ask PLATEPrint AI" calls Google Gemini 1.5 Flash for institution-specific recommendations grounded in EAT-Lancet and SDG guidelines. |
+| ESG Report | Auto-generates CSRD-aligned Scope 3 Category 1 report with GRI 305 table, SBTi target line, and full methodology appendix. Audit-ready. |
+| Nudge Toolkit | Translates CO₂ data into menu decisions — default dishes, sensory renaming, display positioning, social norm messaging — grounded in published behavioural science. |
+| Portfolio View | For property managers: all managed sites ranked by CO₂/meal score with 12-month trend lines. Designed for Akademiska Hus multi-site model. |
+| Compliance Scoring | Set food sustainability thresholds in lease terms. Auto-monitors concession compliance. Generates renewal alerts when sites fall below targets. |
 
 ---
 
-## Technology stack
-
-| Layer | Tool | Why |
-|---|---|---|
-| Frontend + build | Lovable (React + Vite + TypeScript) | Rapid development, live deployment |
-| AI recommendations | Google Gemini 1.5 Flash (DeepMind) | Context-aware sustainability advice |
-| LCA data | Agribalyse 3.1 (ADEME) | Open-licence, EU-standard emission factors |
-| Regional corrections | RISE Research Institutes of Sweden | Swedish-specific transport + production factors |
-| Nutritional data | Livsmedelsverket | Protein equivalence for swap validation |
-| Styling | Tailwind CSS | Minimal, responsive design |
-| Deployment | Lovable cloud (Vercel infrastructure) | Zero-config, instant live URL |
-
----
-
-## Running locally
-
+## Quick start
 ```bash
-git clone https://github.com/YOUR_USERNAME/Plateprint
-cd Plateprint
+git clone https://github.com/YOUR_USERNAME/plateprint
+cd plateprint
 npm install
 echo "VITE_GEMINI_KEY=your_key_here" > .env
 npm run dev
 # Open http://localhost:5173
 ```
 
-Get a free Gemini API key at: aistudio.google.com
+Get a free Gemini API key at **aistudio.google.com** — no credit card required.
 
 ---
 
-## Using the app
+## CSV format
+```
+product,quantity_kg
+Beef mince 20%,180
+Chicken breast,45
+Lentils,8
+```
 
-1. Open the live URL or run locally
-2. Click **"Load sample data"** (pre-loaded KI campus order) or upload your own CSV
-3. CSV format: two columns — `product` (ingredient name) and `quantity_kg`
-4. View the emissions dashboard and bar chart by category
-5. Click **"Ask Plateprint AI"** on any swap card for Gemini-powered recommendations
-6. Scroll to the CSRD report section for the compliance export
+Or click **Load sample data** in the app to see a pre-built KI campus canteen dataset.
 
 ---
 
-## Data sources and licensing
+## Architecture
 
-- **Agribalyse 3.1** — ADEME (Agence de la transition écologique), Open Data Commons ODC-By licence
-- **RISE Sweden** — CC-BY 4.0, Swedish regional corrections
-- **Livsmedelsverket** — Swedish open government data
-- All LCA data is committed directly to this repository — no external API dependency for core functionality
+| Layer | Technology | Purpose |
+|---|---|---|
+| Frontend | React 18 + Vite + TypeScript | Single-page app with sidebar navigation |
+| Styling | Tailwind CSS | Minimalist design — one green palette, no gradients |
+| Charts | Recharts | Bar charts, line charts, benchmark reference lines |
+| CSV parsing | PapaParse | Client-side — no data leaves the browser |
+| LCA matching | Custom TypeScript (`src/data/lcaData.ts`) | Alias-based matching to Agribalyse records |
+| AI | Google Gemini 1.5 Flash (DeepMind) | Contextual swap recommendations via REST |
+| Icons | Lucide React | Sidebar and UI icons |
+| Deployment | Lovable (Vercel) | Zero-config live URL + GitHub source push |
 
+---
+
+## LCA matching pipeline
+```
+1. Exact name match                          → confidence 1.0
+2. Alias match ("nötkött" → "Beef mince")   → confidence 0.9
+3. Substring match                           → confidence 0.7
+4. Unmatched → flagged, 0 kg CO₂e assumed
+```
+
+All dashboard figures, ESG reports, and swap suggestions derive from:
+`co2_total = co2_per_kg × quantity_kg`
+
+---
+
+## Gemini API integration
+```
+Endpoint:  https://generativelanguage.googleapis.com/v1beta/
+           models/gemini-1.5-flash:generateContent
+
+Auth:      ?key=${VITE_GEMINI_KEY}
+
+Request:   { "contents": [{ "parts": [{ "text": prompt }] }],
+             "generationConfig": { "maxOutputTokens": 200,
+                                   "temperature": 0.4 } }
+
+Response:  data.candidates[0].content.parts[0].text
+```
+
+Temperature 0.4 keeps responses practical. If the call fails, the app falls back to standard swap suggestions — Gemini is an enhancement, not a hard dependency.
+
+---
+
+## Data sources
+
+| Dataset | Provider | Licence |
+|---|---|---|
+| Agribalyse 3.1 | ADEME (France) | Open Data Commons ODC-By |
+| RISE Sweden corrections | RISE Research Institutes of Sweden | CC-BY 4.0 |
+| Livsmedelsverket nutritional data | Swedish Food Agency | Open Government Data |
+
+All LCA data is committed to `src/data/lcaData.ts` — core matching works fully offline.
+
+---
+
+## Sustainability frameworks
+
+| Framework | Implementation |
+|---|---|
+| EAT-Lancet Planetary Health Diet | Swap targets prioritise plant proteins; ruminant meat flagged highest priority |
+| One Health | Reducing factory-farmed meat lowers AMR risk |
+| SDG 2 — Zero Hunger | Swaps validate protein and caloric equivalence |
+| SDG 3 — Good Health | Plant-forward purchasing reduces NCD burden |
+| SDG 12 — Responsible Consumption | Weekly emissions quantified and trended |
+| SDG 13 — Climate Action | CSRD Scope 3 reporting with SBTi target alignment |
+| Doughnut Economics | Compliance scoring respects planetary ceilings and nutrition floors |
+| UNESCO ESD | Designed for educational institutions as sustainability living labs |
+
+---
+
+## Environment variables
+```
+VITE_GEMINI_KEY=AIza...   # Free at aistudio.google.com
+```
+
+Never commit your actual key — it is listed in `.gitignore`.
+
+---
+
+## criteria
+|---|---|
+| Innovation | First platform connecting institutional purchasing CSVs to CSRD Scope 3 reporting with embedded AI swap intelligence |
+| Feasibility | Any supplier CSV. No IT integration. Under 2 minutes to first report. |
+| Impact & Scalability | Works for any campus, hospital, or property portfolio. Multi-site modules built in. |
+| Interdisciplinary | Food science (LCA) + public health + AI (DeepMind) + policy (CSRD/SDGs) + behavioural economics |
+| Presentation | Live product above · 2-min Loom above · Full source in this repo |
+
+---
 
 ## Licence
 
